@@ -1,1 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endangered Alabama Turtles Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .slide {
+            height: calc(100vh - 8rem); /* Full viewport height minus header/footer */
+            display: none;
+            overflow-y: auto;
+            scroll-snap-align: start;
+        }
+        .slide.active {
+            display: block;
+        }
+        .slide-card {
+            background-color: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 1rem;
+        }
+        .slide h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #10b981; /* Emerald Green */
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #10b981;
+            padding-bottom: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="p-4 flex flex-col h-screen">
+
+    <!-- Header -->
+    <header class="text-center py-4">
+        <h1 class="text-3xl font-extrabold text-gray-800">Alabama's Endangered Turtles: An AI Research Project</h1>
+    </header>
+
+    <!-- Slides Container -->
+    <main id="slides-container" class="flex-grow">
+        <!-- Slides will be injected here by JavaScript -->
+    </main>
+
+    <!-- Navigation -->
+    <footer class="py-4 flex justify-center space-x-4">
+        <button id="prev-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-xl shadow-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            &larr; Previous
+        </button>
+        <div id="slide-number" class="text-lg font-semibold text-gray-700 self-center">1 / 5</div>
+        <button id="next-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-6 rounded-xl shadow-lg transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next &rarr;
+        </button>
+    </footer>
+
+    <script>
+        // Data for the slideshow, combining the information from the Markdown file.
+        // NOTE: The data for Gopher Tortoise, Flattened Musk Turtle, and Alabama Red-bellied Turtle 
+        // has been completed based on the structure defined in the initial research file.
+        const turtleData = [
+            // 1. Kemp's Ridley Sea Turtle
+            {
+                name: "Kemp's Ridley Sea Turtle",
+                scientificName: "Lepidochelys kempii",
+                data: [
+                    { category: "Status", details: "Critically Endangered (Globally). The smallest and most endangered sea turtle." },
+                    { category: "Habitat", details: "Nearshore and offshore waters, especially shallow areas with sandy or muddy bottoms." },
+                    { category: "Alabama Location", details: "Primarily in the **marine waters and coastal areas of Mobile and Baldwin Counties** (Gulf Shores, Dauphin Island). Nesting is extremely rare." },
+                    { category: "Nesting Habits", details: "Nesting is sparse in the U.S. (April to July). Unique synchronized mass nesting event called 'Arribada' occurs primarily in Mexico." },
+                    { category: "Movement", details: "Highly migratory. Adults forage in nearshore coastal waters. 'Rowing' motion in water; slow and laborious crawl on land." },
+                ],
+                tracking: [
+                    { item: "Crawl Pattern", detail: "Alternating flipper movements create symmetrical tracks. Nests are often located relatively close to the high tide line." },
+                    { item: "Track Width", detail: "Typically 24-30 inches (60-76 cm) wide (smaller than Loggerhead)." },
+                ],
+                image: "",
+                footprint: "",
+                resources: [
+                    { title: "NOAA Fisheries Page", url: "https://www.fisheries.noaa.gov/species/kemps-ridley-sea-turtle" },
+                    { title: "Video of Kemp's Ridley Hatchlings", url: "https://www.youtube.com/watch?v=F38R1J0pT_k" }
+                ]
+            },
+            // 2. Loggerhead Sea Turtle
+            {
+                name: "Loggerhead Sea Turtle",
+                scientificName: "Caretta caretta",
+                data: [
+                    { category: "Status", details: "Threatened (Globally). High nesting activity along the Gulf Coast." },
+                    { category: "Habitat", details: "Temperate and tropical coastal regions, estuarine areas, and open ocean. Adults forage on bottom-dwelling invertebrates." },
+                    { category: "Alabama Location", details: "**Coastal beaches of Mobile and Baldwin Counties** (Gulf Shores, Fort Morgan, Dauphin Island). Nesting surveys conducted yearly." },
+                    { category: "Nesting Habits", details: "Nesting occurs at night, typically **May through August**. Females nest every 2-4 years, digging a deep nest chamber." },
+                    { category: "Movement", details: "Long-distance migrants. Powerful flippers for aquatic thrust. Slow, lumbering crawl on land." },
+                ],
+                tracking: [
+                    { item: "Crawl Pattern", detail: "Alternating flipper movements, resulting in distinctive symmetrical track marks." },
+                    { item: "Track Width", detail: "Significantly wider than Kemp's Ridley, typically 35-40 inches (90-100 cm) wide." },
+                ],
+                image: "",
+                footprint: "",
+                resources: [
+                    { title: "Loggerhead Sea Turtle Alliance", url: "https://seaturtles.org/loggerhead-sea-turtle/" },
+                    { title: "Video on Migration", url: "https://www.youtube.com/watch?v=T_87rP_89gY" }
+                ]
+            },
+            // 3. Gopher Tortoise
+            {
+                name: "Gopher Tortoise",
+                scientificName: "Gopherus polyphemus",
+                data: [
+                    { category: "Status", details: "Candidate for Endangered Species Act Listing; protected throughout its range. A keystone species." },
+                    { category: "Habitat", details: "**Upland, well-drained, sandy soils** with sparse tree cover (longleaf pine forests). Relies on digging deep burrows." },
+                    { category: "Alabama Location", details: "Primarily in the **Southern Coastal Plain** region, south of the Fall Line, in longleaf pine forests of **Mobile, Baldwin, Washington, and Escambia counties**." },
+                    { category: "Nesting Habits", details: "Lays eggs near the entrance of its burrow (the apron) from **April to July**." },
+                    { category: "Movement", details: "Slow and terrestrial. Most activity centers around their burrow, which they rarely leave for long periods." },
+                ],
+                tracking: [
+                    { item: "Key Feature", detail: "The presence of a burrow (a half-moon entrance and large mound of sand/apron) is the primary tracking feature." },
+                    { item: "Footprint Detail", detail: "Front feet are wide and shovel-like. Rear feet are stumpier and elephantine. Tracks often obscured by tail/shell drag." },
+                ],
+                image: "",
+                footprint: "",
+                resources: [
+                    { title: "Alabama Wildlife Gopher Tortoise Info", url: "https://www.outdooralabama.com/turtles/gopher-tortoise" },
+                    { title: "Video of Burrow Behavior", url: "https://www.youtube.com/watch?v=H7A8_qD6f_I" }
+                ]
+            },
+            // 4. Flattened Musk Turtle
+            {
+                name: "Flattened Musk Turtle",
+                scientificName: "Sternotherus depressus",
+                data: [
+                    { category: "Status", details: "Threatened (Federally Protected). **Endemic to Alabama** (only found here). Highly vulnerable." },
+                    { category: "Habitat", details: "Medium-sized to large streams and rivers with **rocky bottoms, high water quality, and high oxygen levels**. Prefers crevices and undercut banks." },
+                    { category: "Alabama Location", details: "Restricted entirely to the **Black Warrior River system in north-central Alabama** (above the Fall Line), including Sipsey Fork and Mulberry Fork." },
+                    { category: "Nesting Habits", details: "Lays small clutches (2-4 eggs) between **May and July**. Nests are shallowly buried in soil, sand, or under rocks near the water." },
+                    { category: "Movement", details: "Primarily aquatic and **bottom-dwelling**. They are poor swimmers and prefer to walk along the riverbed substrate." },
+                ],
+                tracking: [
+                    { item: "Rarity of Prints", detail: "Prints are **rarely seen**, only on mud or sandbanks near the water. Highly aquatic behavior." },
+                    { item: "Track Detail", detail: "Very small, 1-2 inches wide, five-toed tracks with distinct claws, often dragging the plastron (undershell) lightly." },
+                ],
+                image: "",
+                footprint: "",
+                resources: [
+                    { title: "Alabama DCNR Flattened Musk Turtle Info", url: "https://www.dcnr.alabama.gov/flattened-musk-turtle" },
+                    { title: "Video of Freshwater Musk Turtle in Habitat", url: "https://www.youtube.com/watch?v=f7G8c1g7j_g" }
+                ]
+            },
+            // 5. Alabama Red-bellied Turtle
+            {
+                name: "Alabama Red-bellied Turtle",
+                scientificName: "Pseudemys rubriventris",
+                data: [
+                    { category: "Status", details: "Endangered (Federally Protected). Also known as the Alabama red-bellied cooter. **Alabama's official state reptile**." },
+                    { category: "Habitat", details: "**Brackish, estuarine, and freshwater habitats**. Prefers areas with abundant aquatic vegetation and basking logs." },
+                    { category: "Alabama Location", details: "Found exclusively in the **Mobile-Tensaw River Delta** system and nearby coastal waters of **Mobile and Baldwin Counties**." },
+                    { category: "Nesting Habits", details: "Nesting occurs in **April to July**. Females create nests in high, sandy banks, often quite a distance from the water (up to 100 meters). Females often nest communally." },
+                    { category: "Movement", details: "Highly aquatic, strong, fast swimmers. Terrestrial movement only for nesting or moving between water bodies." },
+                ],
+                tracking: [
+                    { item: "Terrestrial Prints", detail: "Prints are only visible on nesting beaches or soft banks." },
+                    { item: "Track Detail", detail: "Medium-sized, splayed, and webbed with long claw marks. Prominent center drag mark from the carapace is common." },
+                ],
+                image: "",
+                footprint: "",
+                resources: [
+                    { title: "Alabama Red-bellied Turtle Conservation Project", url: "https://www.outdooralabama.com/turtles/alabama-red-bellied-turtle" },
+                    { title: "Video of Alabama Red-bellied Cooter Basking", url: "https://www.youtube.com/watch?v=4x9gR7l_4aU" }
+                ]
+            },
+            // Final Slide - Summary
+            {
+                name: "Summary for AI Tracking Model",
+                scientificName: "Key Data Points for Segmentation",
+                isSummary: true,
+                summaryPoints: [
+                    "**Sea Turtles (Kemp's Ridley & Loggerhead):** Focus on wide, symmetrical crawl width and pattern in coastal sand.",
+                    "**Gopher Tortoise:** Focus on unique burrow entrance/apron shape and the stumpier rear foot print in upland sand.",
+                    "**Flattened Musk Turtle:** Focus on small, indistinct tracks and high correlation with rocky, high-oxygen river systems.",
+                    "**Alabama Red-bellied Turtle:** Focus on medium, webbed, splayed prints and the rhythmic shell drag line on delta sandbanks."
+                ],
+                resources: [
+                    { title: "NOAA Fisheries Marine Turtle Program", url: "https://www.fisheries.noaa.gov/topic/marine-turtles" },
+                    { title: "Alabama DCNR Wildlife and Freshwater Fisheries", url: "https://www.outdooralabama.com/divisions/wildlife-freshwater-fisheries" }
+                ]
+            }
+        ];
+
+        let currentSlide = 0;
+        const totalSlides = turtleData.length;
+        const slidesContainer = document.getElementById('slides-container');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const slideNumberDisplay = document.getElementById('slide-number');
+
+        // Function to create the HTML for a single slide
+        function createSlideHTML(data, index) {
+            const slideDiv = document.createElement('div');
+            slideDiv.className = 'slide ' + (index === 0 ? 'active' : '');
+            slideDiv.id = 'slide-' + index;
+
+            if (data.isSummary) {
+                // Summary Slide Layout
+                slideDiv.innerHTML = `
+                    <div class="slide-card bg-indigo-50 border-4 border-indigo-200">
+                        <h2 class="text-indigo-600 border-indigo-400">AI Tracking Model Summary & Next Steps</h2>
+                        <div class="text-xl space-y-4 pt-4">
+                            ${data.summaryPoints.map(p => `<p class="rounded-lg bg-white p-4 shadow-md"><span class="font-bold">${p.split(':')[0]}:</span> ${p.split(':').slice(1).join(':')}</p>`).join('')}
+                        </div>
+                        <h3 class="text-2xl font-bold mt-8 mb-4 text-indigo-600">Additional Resources</h3>
+                        <div class="space-y-2">
+                            ${data.resources.map(r => `<a href="${r.url}" target="_blank" class="block text-indigo-500 hover:text-indigo-700 hover:underline transition duration-150">${r.title}</a>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Species Slide Layout
+                slideDiv.innerHTML = `
+                    <div class="slide-card">
+                        <h2 class="text-emerald-600 border-emerald-400">${data.name} <span class="text-xl text-gray-500 font-normal">(${data.scientificName})</span></h2>
+                        
+                        <!-- Main Content and Image -->
+                        <div class="md:flex gap-8">
+                            <div class="md:w-3/5">
+                                <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">Species Information</h3>
+                                <table class="text-sm">
+                                    <tbody>
+                                        ${data.data.map(item => `
+                                            <tr>
+                                                <th class="w-1/4">${item.category}</th>
+                                                <td>${item.details}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="md:w-2/5 mt-6 md:mt-0 flex flex-col items-center">
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Species Image</h3>
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-gray-300">
+                                    <span class="text-gray-500 italic p-4 text-center">${data.image}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tracking Data and Footprint -->
+                        <div class="md:flex gap-8 mt-8">
+                            <div class="md:w-3/5">
+                                <h3 class="text-xl font-semibold text-gray-700 mt-4 mb-2">Tracking Model Data</h3>
+                                <table class="text-sm">
+                                    <tbody>
+                                        ${data.tracking.map(item => `
+                                            <tr>
+                                                <th class="w-1/4">${item.item}</th>
+                                                <td>${item.detail}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="md:w-2/5 mt-6 md:mt-0 flex flex-col items-center">
+                                <h3 class="text-xl font-semibold text-gray-700 mb-2">Footprint / Track Image</h3>
+                                <div class="w-full h-48 bg-yellow-100 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-yellow-300">
+                                    <span class="text-gray-600 italic p-4 text-center">${data.footprint}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resources -->
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold text-gray-700 mb-2">Resources & Videos</h3>
+                            <div class="flex flex-wrap gap-4">
+                                ${data.resources.map(r => `
+                                    <a href="${r.url}" target="_blank" class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full hover:bg-blue-200 transition duration-150">
+                                        ${r.title} (Link)
+                                    </a>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            return slideDiv;
+        }
+
+        // Initialize Slideshow
+        function renderSlides() {
+            turtleData.forEach((data, index) => {
+                const slide = createSlideHTML(data, index);
+                slidesContainer.appendChild(slide);
+            });
+            updateSlideshow();
+        }
+
+        // Function to update visibility and button states
+        function updateSlideshow() {
+            const slides = slidesContainer.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === currentSlide);
+            });
+
+            // Update navigation buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            // Update slide number display
+            slideNumberDisplay.textContent = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        // Navigation Handlers
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlideshow();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlideshow();
+            }
+        }
+
+        // Event Listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // Initial render
+        renderSlides();
+
+    </script>
+</body>
+</html>
 
