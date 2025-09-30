@@ -79,8 +79,7 @@
 
     <script>
         // Data for the slideshow, combining the information from the Markdown file.
-        // NOTE: The data for Gopher Tortoise, Flattened Musk Turtle, and Alabama Red-bellied Turtle 
-        // has been completed based on the structure defined in the initial research file.
+        // The image fields now contain links to descriptive placeholder images.
         const turtleData = [
             // 1. Kemp's Ridley Sea Turtle
             {
@@ -97,8 +96,8 @@
                     { item: "Crawl Pattern", detail: "Alternating flipper movements create symmetrical tracks. Nests are often located relatively close to the high tide line." },
                     { item: "Track Width", detail: "Typically 24-30 inches (60-76 cm) wide (smaller than Loggerhead)." },
                 ],
-                image: "",
-                footprint: "",
+                image: "https://placehold.co/400x192/4ade80/064e3b?text=Kemp's+Ridley+Turtle",
+                footprint: "https://placehold.co/400x192/fcd34d/92400e?text=Kemp's+Ridley+Crawl+Track",
                 resources: [
                     { title: "NOAA Fisheries Page", url: "https://www.fisheries.noaa.gov/species/kemps-ridley-sea-turtle" },
                     { title: "Video of Kemp's Ridley Hatchlings", url: "https://www.youtube.com/watch?v=F38R1J0pT_k" }
@@ -119,8 +118,8 @@
                     { item: "Crawl Pattern", detail: "Alternating flipper movements, resulting in distinctive symmetrical track marks." },
                     { item: "Track Width", detail: "Significantly wider than Kemp's Ridley, typically 35-40 inches (90-100 cm) wide." },
                 ],
-                image: "",
-                footprint: "",
+                image: "https://placehold.co/400x192/10b981/047857?text=Loggerhead+Sea+Turtle",
+                footprint: "https://placehold.co/400x192/fcd34d/92400e?text=Loggerhead+Crawl+Track",
                 resources: [
                     { title: "Loggerhead Sea Turtle Alliance", url: "https://seaturtles.org/loggerhead-sea-turtle/" },
                     { title: "Video on Migration", url: "https://www.youtube.com/watch?v=T_87rP_89gY" }
@@ -141,8 +140,8 @@
                     { item: "Key Feature", detail: "The presence of a burrow (a half-moon entrance and large mound of sand/apron) is the primary tracking feature." },
                     { item: "Footprint Detail", detail: "Front feet are wide and shovel-like. Rear feet are stumpier and elephantine. Tracks often obscured by tail/shell drag." },
                 ],
-                image: "",
-                footprint: "",
+                image: "https://placehold.co/400x192/84cc16/365314?text=Gopher+Tortoise+in+Habitat",
+                footprint: "https://placehold.co/400x192/fcd34d/92400e?text=Gopher+Tortoise+Footprint",
                 resources: [
                     { title: "Alabama Wildlife Gopher Tortoise Info", url: "https://www.outdooralabama.com/turtles/gopher-tortoise" },
                     { title: "Video of Burrow Behavior", url: "https://www.youtube.com/watch?v=H7A8_qD6f_I" }
@@ -163,8 +162,8 @@
                     { item: "Rarity of Prints", detail: "Prints are **rarely seen**, only on mud or sandbanks near the water. Highly aquatic behavior." },
                     { item: "Track Detail", detail: "Very small, 1-2 inches wide, five-toed tracks with distinct claws, often dragging the plastron (undershell) lightly." },
                 ],
-                image: "",
-                footprint: "",
+                image: "https://placehold.co/400x192/3b82f6/1e3a8a?text=Flattened+Musk+Turtle",
+                footprint: "https://placehold.co/400x192/d1d5db/374151?text=Musk+Turtle+Track+on+Mud",
                 resources: [
                     { title: "Alabama DCNR Flattened Musk Turtle Info", url: "https://www.dcnr.alabama.gov/flattened-musk-turtle" },
                     { title: "Video of Freshwater Musk Turtle in Habitat", url: "https://www.youtube.com/watch?v=f7G8c1g7j_g" }
@@ -185,8 +184,8 @@
                     { item: "Terrestrial Prints", detail: "Prints are only visible on nesting beaches or soft banks." },
                     { item: "Track Detail", detail: "Medium-sized, splayed, and webbed with long claw marks. Prominent center drag mark from the carapace is common." },
                 ],
-                image: "",
-                footprint: "",
+                image: "https://placehold.co/400x192/ef4444/7f1d1d?text=Alabama+Red-bellied+Turtle",
+                footprint: "https://placehold.co/400x192/fcd34d/92400e?text=Red-bellied+Turtle+Nesting+Track",
                 resources: [
                     { title: "Alabama Red-bellied Turtle Conservation Project", url: "https://www.outdooralabama.com/turtles/alabama-red-bellied-turtle" },
                     { title: "Video of Alabama Red-bellied Cooter Basking", url: "https://www.youtube.com/watch?v=4x9gR7l_4aU" }
@@ -258,10 +257,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- Image Placeholder -->
                             <div class="md:w-2/5 mt-6 md:mt-0 flex flex-col items-center">
                                 <h3 class="text-xl font-semibold text-gray-700 mb-2">Species Image</h3>
-                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-gray-300">
-                                    <span class="text-gray-500 italic p-4 text-center">${data.image}</span>
+                                <div class="w-full h-48 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-gray-300">
+                                    <img src="${data.image}" alt="${data.name} Image Placeholder" class="object-cover w-full h-full">
                                 </div>
                             </div>
                         </div>
@@ -281,10 +281,11 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- Footprint Placeholder -->
                             <div class="md:w-2/5 mt-6 md:mt-0 flex flex-col items-center">
                                 <h3 class="text-xl font-semibold text-gray-700 mb-2">Footprint / Track Image</h3>
-                                <div class="w-full h-48 bg-yellow-100 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-yellow-300">
-                                    <span class="text-gray-600 italic p-4 text-center">${data.footprint}</span>
+                                <div class="w-full h-48 flex items-center justify-center rounded-xl overflow-hidden shadow-lg border border-yellow-300">
+                                    <img src="${data.footprint}" alt="${data.name} Footprint Placeholder" class="object-cover w-full h-full">
                                 </div>
                             </div>
                         </div>
@@ -355,4 +356,3 @@
     </script>
 </body>
 </html>
-
